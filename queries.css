@@ -27,6 +27,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .image {
+    width: 120px;
+    height: 120px;
+  }
+
   .res_img {
     width: 120px;
     height: 120px;
@@ -46,10 +51,6 @@
 }
 
 @media (max-width: 31em) {
-  html {
-    font-size: 40%;
-  }
-
   .scroll {
     grid-auto-columns: 44%;
   }
@@ -60,10 +61,66 @@
 
   .product-card {
     flex-direction: row;
+    position: relative;
   }
 
-  .res_data {
-    display: grid;
-    grid-template-rows: 1fr;
+  .image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .res_img {
+    width: 100px;
+    height: 100px;
+    padding: 1rem 0 1rem 1.5rem;
+  }
+
+  .res_name {
+    box-shadow: none;
+    position: absolute;
+    top: 15%;
+    left: 35%;
+    width: 30%;
+    text-align: left;
+  }
+
+  .btn-a {
+    bottom: 2.6rem;
+    left: 36%;
+  }
+
+  .res_price {
+    position: absolute;
+    bottom: 3.2rem;
+    left: 70%;
+  }
+
+  .star-1,
+  .star-2,
+  .star-3,
+  .star-4,
+  .star-5 {
+    position: absolute;
+    top: 21%;
+  }
+
+  .star-1 {
+    left: 70%;
+  }
+
+  .star-2 {
+    left: 74%;
+  }
+
+  .star-3 {
+    left: 78%;
+  }
+
+  .star-4 {
+    left: 82%;
+  }
+
+  .star-5 {
+    left: 86%;
   }
 }

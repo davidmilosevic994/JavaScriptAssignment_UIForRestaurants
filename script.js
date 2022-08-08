@@ -1,7 +1,5 @@
 "use strict";
 
-/* YELP API */
-
 var myHeaders = new Headers();
 
 myHeaders.append(
@@ -14,7 +12,6 @@ var requestOptions = {
   headers: myHeaders,
   redirect: "follow",
 };
-/* ERROR FUNCTIONS */
 
 const buttonCategories = document.querySelector(".button-categories");
 const productCards = document.querySelector(".cards");
@@ -65,7 +62,6 @@ const getCategoryData = async function () {
 
 getCategoryData();
 
-/* SEARCH RESTAURANTS BY CATEGORY */
 document
   .querySelector(".button-categories")
   .addEventListener("click", function (e) {
@@ -108,7 +104,9 @@ const renderRes = function (apiData, catTitle) {
     stores.categories.forEach(function (category) {
       if (category.title === catTitle) {
         const html = `
-        <div onclick="location.href='${stores.url}';" class="product-card">
+        <article onclick="clickCards(
+          '${stores.url}'
+        );" class="product-card">
           <div class="image">
             <img
               class="res_img" alt="Picture of food or restaurant"
@@ -119,19 +117,19 @@ const renderRes = function (apiData, catTitle) {
             <h3 class="res_name">${stores.name}</h3>
             <p class="res_rating">
                
-               <span class="fa fa-star ${
+               <span class="fa fa-star star-1 ${
                  stores.rating >= 1 ? "checked" : "unchecked"
                } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-2 ${
                   stores.rating >= 2 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-3 ${
                   stores.rating >= 3 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-4 ${
                   stores.rating >= 4 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-5 ${
                   stores.rating >= 5 ? "checked" : "unchecked"
                 } "></span>
                 <span class="res_price"> | ${
@@ -140,7 +138,7 @@ const renderRes = function (apiData, catTitle) {
             </p>
           </div>
           <a href="${stores.url}" target="_blank" class="btn-a">View</a>
-        </div>
+        </article>
         `;
 
         productCards.insertAdjacentHTML("beforeend", html);
@@ -148,8 +146,6 @@ const renderRes = function (apiData, catTitle) {
     });
   });
 };
-
-/* LIST 15 INITIAL CARDS */
 
 const showCards = function (data) {
   for (let i = 0; i < 15; i++) {
@@ -167,19 +163,19 @@ const showCards = function (data) {
             <h3 class="res_name">${data.businesses[i].name}</h3>
             <p class="res_rating">
                
-               <span class="fa fa-star ${
+               <span class="fa fa-star star-1 ${
                  data.businesses[i].rating >= 1 ? "checked" : "unchecked"
                } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-2 ${
                   data.businesses[i].rating >= 2 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-3 ${
                   data.businesses[i].rating >= 3 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star ${
+                <span class="fa fa-star star-4 ${
                   data.businesses[i].rating >= 4 ? "checked" : "unchecked"
                 } "></span>
-                <span class="fa fa-star last-star ${
+                <span class="fa fa-star star-5 last-star ${
                   data.businesses[i].rating >= 5 ? "checked" : "unchecked"
                 } "></span>
                 <span class="res_price"> | ${
@@ -189,7 +185,9 @@ const showCards = function (data) {
                 }</span>
             </p>
           </div>
-          <a href="${data.url}" target="_blank" class="btn-a">View</a>
+          <a href="${
+            data.businesses[i].url
+          }" target="_blank" class="btn-a">View</a>
         </article>
         `;
     productCards.insertAdjacentHTML("beforeend", html);
@@ -217,8 +215,6 @@ const getData = async function () {
 };
 
 getData();
-
-/* INFINITyY SCROLL */
 
 const loading = document.querySelector(".three-balls");
 
