@@ -23,7 +23,7 @@ const renderError1 = function (message) {
     productCards.insertAdjacentText("beforeend", message);
   };
 };
-/* RENDERING CATEGORY BUTTONS */
+
 const showCategories = function (catData) {
   let catArray = [];
   catData.businesses.forEach(function (stores) {
