@@ -1,1 +1,1 @@
-# JavaScriptAssignment_UIForRestaurants-
+# JavaScriptAssignment_UIForRestaurants
