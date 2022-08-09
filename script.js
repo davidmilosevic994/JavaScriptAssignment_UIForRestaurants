@@ -24,6 +24,14 @@ const renderError1 = function (message) {
   };
 };
 
+/**
+ * This function loops through collected restaurants data from API and extracts
+ * all name and add the into array that contains all individual restaurants category names.
+ * Than it loops through that array of names and put that name into button element and
+ * add that button element into parent element of all button elements.
+ *
+ * @param {Object} catData Data about restaurants.
+ */
 const showCategories = function (catData) {
   let catArray = [];
   catData.businesses.forEach(function (stores) {
@@ -39,9 +47,12 @@ const showCategories = function (catData) {
     `;
     buttonCategories.insertAdjacentHTML("beforeend", html);
   });
-  console.log(catArray);
 };
 
+/**
+ * This function collect (GET) the data about restaurants from the given url, and than
+ * calls showCategories function and pass to her collected data.
+ */
 const getCategoryData = async function () {
   try {
     const res = await fetch(
@@ -52,7 +63,7 @@ const getCategoryData = async function () {
     if (!res.ok) throw new Error(`Restaurants data cannot be found.`);
 
     const data = await res.json();
-    console.log(data);
+
     showCategories(data);
   } catch (err) {
     console.error(`${err} 💥`);
@@ -71,14 +82,20 @@ document
       }
     }
     removeCard(productCards);
-    console.log(e.target);
+
     if (e.target.className === "btn") {
       const id = e.target.innerText;
-      console.log(id);
+
       getCategoryCard(id);
     }
   });
-
+/**
+ * This function collect (GET) the data about restaurants from the given url, and than
+ * calls renderRes function and pass to her collected data and category name that she get
+ * as argument.
+ *
+ * @param {string} event Extracted category name from clicked button.
+ */
 const getCategoryCard = async function (event) {
   try {
     let category = event;
@@ -91,7 +108,7 @@ const getCategoryCard = async function (event) {
     if (!res.ok) throw new Error(`Restaurants data cannot be found.`);
 
     const data = await res.json();
-    console.log(data);
+
     renderRes(data, category);
   } catch (err) {
     console.error(`${err} 💥`);
@@ -99,6 +116,14 @@ const getCategoryCard = async function (event) {
   }
 };
 
+/**
+ * Search function for selected restaurant category.This function loops through collected restaurants data
+ * from API and compares if restaurant category anme matches name that function have recived as argument.
+ * If yes thant function render restaurant name on the page.
+ *
+ * @param {Object} apiData Data about restaurants.
+ * @param {string} catTitle Extracted category name from clicked button.
+ */
 const renderRes = function (apiData, catTitle) {
   apiData.businesses.forEach(function (stores) {
     stores.categories.forEach(function (category) {
@@ -137,7 +162,7 @@ const renderRes = function (apiData, catTitle) {
                 }</span>
             </p>
           </div>
-          <a href="${stores.url}" target="_blank" class="btn-a">View</a>
+          <a class="btn-a">View</a>
         </article>
         `;
 
@@ -147,6 +172,12 @@ const renderRes = function (apiData, catTitle) {
   });
 };
 
+/**
+ * This function loops through first 15 restaurants and fill the HTML elements with
+ * collected data and render them on the page.
+ *
+ * @param {Object} data Data about restaurants.
+ */
 const showCards = function (data) {
   for (let i = 0; i < 15; i++) {
     const html = `
@@ -185,9 +216,7 @@ const showCards = function (data) {
                 }</span>
             </p>
           </div>
-          <a href="${
-            data.businesses[i].url
-          }" target="_blank" class="btn-a">View</a>
+          <a class="btn-a">View</a>
         </article>
         `;
     productCards.insertAdjacentHTML("beforeend", html);
@@ -196,6 +225,10 @@ const showCards = function (data) {
   }
 };
 
+/**
+ * This function collect (GET) the data about restaurants from the given url, and than
+ * calls showCards function and pass to her collected data.
+ */
 const getData = async function () {
   try {
     const res = await fetch(
@@ -206,7 +239,7 @@ const getData = async function () {
     if (!res.ok) throw new Error(`Restaurants data cannot be found.`);
 
     const data = await res.json();
-    console.log(data);
+
     showCards(data);
   } catch (err) {
     console.error(`${err} 💥`);
@@ -221,12 +254,16 @@ const loading = document.querySelector(".three-balls");
 window.addEventListener("scroll", () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
-  console.log({ scrollTop, scrollHeight, clientHeight });
   if (clientHeight + scrollTop >= scrollHeight - 5) {
     showLoading();
   }
 });
 
+/**
+ * This function will show 3 dots animation that indicates 15 new
+ * restaurant cards are laoding.
+ *
+ */
 function showLoading() {
   loading.classList.add("show");
   setTimeout(getData, 1000);
